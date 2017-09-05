@@ -35,8 +35,8 @@ public class SCInstallerWizardDialog extends WizardDialog {
 	}
 	@Override
 	protected void finishPressed() {
-		// TODO Auto-generated method stub
 		super.finishPressed();
+		this.close();
 	}
 	@Override
 	public boolean close() {

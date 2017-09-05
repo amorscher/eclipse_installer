@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<genmodel:GenModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
+    xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" modelDirectory="/at.bachmann.sc.installer/src-gen" editDirectory="/at.bachmann.sc.installer/src-gen"
+    modelPluginID="at.bachmann.sc.installer" modelName="Installer" rootExtendsClass="org.eclipse.emf.ecore.impl.MinimalEObjectImpl$Container"
+    importerID="org.eclipse.emf.importer.ecore" complianceLevel="8.0" copyrightFields="false"
+    operationReflection="true" importOrganizing="true">
+  <foreignModel>installer.ecore</foreignModel>
+  <genPackages prefix="Installer" basePackage="at.bachmann.sc.installer.model" disposableProviderFactory="true"
+      ecorePackage="installer.ecore#/">
+    <genClasses ecoreClass="installer.ecore#//Software">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute installer.ecore#//Software/name"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference installer.ecore#//Software/components"/>
+    </genClasses>
+    <genClasses ecoreClass="installer.ecore#//InstallableComponent">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute installer.ecore#//InstallableComponent/name"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute installer.ecore#//InstallableComponent/features"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference installer.ecore#//InstallableComponent/subComponents"/>
+    </genClasses>
+  </genPackages>
+</genmodel:GenModel>

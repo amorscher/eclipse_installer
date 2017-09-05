@@ -21,7 +21,8 @@ import org.eclipse.jface.wizard.Wizard;
 public class SCInstallerWizard extends Wizard {
 
 	private InstallableFeatureSelectionPage selectFeaturePage;
-	private InstallableFeatureSelectionPage zipOutputPage;
+	private SelectInstallDirectory selectInstallDirectory;
+	private AcceptLicensePage acceptLicense;
 
 	@Inject
 	public SCInstallerWizard() {
@@ -35,22 +36,25 @@ public class SCInstallerWizard extends Wizard {
 
 	@Override
 	public void addPages() {
+		this.acceptLicense = new AcceptLicensePage("AcceptLicense");
+		this.selectInstallDirectory = new SelectInstallDirectory("Zip the output");
 		this.selectFeaturePage = new InstallableFeatureSelectionPage("Select features to install");
-		this.zipOutputPage = new InstallableFeatureSelectionPage("Zip the output");
+		
 		// TODO add pages
+		this.addPage(acceptLicense);
+		this.addPage(selectInstallDirectory);
 		this.addPage(selectFeaturePage);
-		this.addPage(zipOutputPage);
+		
 	}
 
 	@Override
 	public boolean performFinish() {
-
+		final String installPath = selectInstallDirectory.installPath();
 		try {
 			getContainer().run(true, true, t -> {
 				// do the extraction of the installation zip
 				FileSystem fileSystem = FileSystems.getDefault();
-				String uncompressedDirectory = "eclipseUnderTest/";
-				Path eclipseToIntall = fileSystem.getPath(uncompressedDirectory);
+				Path eclipseToIntall = fileSystem.getPath(installPath);
 				
 				t.beginTask("Install Components", 100);
 				t.subTask("Extract ...");
@@ -72,13 +76,13 @@ public class SCInstallerWizard extends Wizard {
 						// If directory then create a new directory in
 						// uncompressed folder
 						if (entry.isDirectory()) {
-							System.out.println("Creating Directory:" + uncompressedDirectory + entry.getName());
-							Files.createDirectories(fileSystem.getPath(uncompressedDirectory + entry.getName()));
+							System.out.println("Creating Directory:" + installPath + entry.getName());
+							Files.createDirectories(fileSystem.getPath(installPath + entry.getName()));
 						}
 						// Else create the file
 						else {
 							InputStream is = file.getInputStream(entry);
-							String uncompressedFileName = uncompressedDirectory + entry.getName();
+							String uncompressedFileName = installPath + entry.getName();
 							Path uncompressedFilePath = fileSystem.getPath(uncompressedFileName);
 							Path path = Files.createFile(uncompressedFilePath);
 							if (entry.getName().endsWith("/eclipse")){

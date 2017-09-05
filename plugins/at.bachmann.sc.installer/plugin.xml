@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?eclipse version="3.4"?>
 <plugin>
-
-   <extension
+ <extension
          id="product"
          point="org.eclipse.core.runtime.products">
       <product
@@ -12,7 +11,30 @@
                name="applicationCSS"
                value="platform:/plugin/at.bachmann.sc.installer/css/default.css">
          </property>
+         <property
+               name="appName"
+               value="at.bachmann.sc.installer">
+         </property>
       </product>
    </extension>
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <!-- @generated installer -->
+      <package
+            uri="http://installer/1.0.0"
+            class="at.bachmann.sc.installer.model.installer.InstallerPackage"
+            genModel="model/installer.genmodel"/>
+   </extension>
 
+   <extension point="org.eclipse.emf.edit.itemProviderAdapterFactories">
+      <!-- @generated installer -->
+      <factory
+            uri="http://installer/1.0.0"
+            class="at.bachmann.sc.installer.model.installer.provider.InstallerItemProviderAdapterFactory"
+            supportedTypes=
+              "org.eclipse.emf.edit.provider.IEditingDomainItemProvider
+               org.eclipse.emf.edit.provider.IStructuredItemContentProvider
+               org.eclipse.emf.edit.provider.ITreeItemContentProvider
+               org.eclipse.emf.edit.provider.IItemLabelProvider
+               org.eclipse.emf.edit.provider.IItemPropertySource"/>
+   </extension>
 </plugin>
